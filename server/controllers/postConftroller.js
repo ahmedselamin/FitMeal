@@ -33,4 +33,25 @@ router.post('/', async (req, res) => {
     } catch (err) {
       res.status(500).json({ message: 'Error creating post' });
     }
-  });
+});
+
+
+router.put('/:id', async (req, res) => {
+  const { title, description, ingredients, instructions } = req.body;
+
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(
+      req.params.id,
+      { title, description, ingredients, instructions },
+      { new: true }
+    );
+
+    if (!updatedPost) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.json(updatedPost);
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating post' });
+  }
+});
