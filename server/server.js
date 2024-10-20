@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from "cors";
 import mongoose from 'mongoose';
 import dotenv from "dotenv"
 import authRoutes from "./routes/auth.js";
@@ -7,6 +8,7 @@ import postRoutes from "./routes/post.js";
 dotenv.config();
 
 const app = express();
+app.use(cors());
 
 const port = process.env.PORT || 3030;
 const DATABASE_URL = process.env.DATABASE_URL;
@@ -19,7 +21,7 @@ mongoose.connect(DATABASE_URL)
   .catch((err) => console.log('Error connecting to MongoDB:', err));
 
 app.use('/api/auth', authRoutes);
-app.use('/api/post', postRoutes);
+app.use('/api/posts', postRoutes);
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`);
