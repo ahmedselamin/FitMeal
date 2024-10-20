@@ -1,19 +1,18 @@
-import multer from "multer"
-import path from "path"
+import multer from 'multer';
+import path from 'path';
 
-//set up storage for uploads
+// Set up storage for uploads
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads') //store uploads here
-    },
-    filename: (req, file, cb) => {
-        const uniqueName = Date.now() + path.extname(file.originalname);  // create unique file name
-        cb(null, uniqueName);
-    },
-    
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Directory to save uploaded files
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + path.extname(file.originalname); // Create a unique filename
+    cb(null, uniqueName);
+  },
 });
 
-//initialize upload
-const upload = multer({ upload });
+// Initialize upload
+const upload = multer({ storage });
 
-export default multer;
+export default upload;
