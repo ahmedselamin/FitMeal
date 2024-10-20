@@ -23,7 +23,7 @@ const HomePage = () => {
   return (
     <Box sx={{ padding: '20px' }}>
       <Stack spacing={3}>
-        {posts.length > 0 ? 
+        {posts.length < 0 ? 
           (
            <Typography>No posts available</Typography>
           ) : (
