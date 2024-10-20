@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{
+      <AppBar position="sticky" sx={{
           backgroundColor: '#005477',
           color: 'white',
           borderRadius: "40px",
