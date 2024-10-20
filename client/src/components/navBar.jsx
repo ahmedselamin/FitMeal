@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, Button, Drawer, List, ListItem, ListItemText, Box } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Button, Menu, MenuItem, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import axiosInstance from '../utils/axiosInstance';
 
 const Navbar = () => {
-  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
@@ -23,75 +21,107 @@ const Navbar = () => {
     navigate('/');
   };
 
-  // Toggle drawer for mobile view
-  const toggleDrawer = () => {
-    setDrawerOpen(!isDrawerOpen);
+  // Handle mobile menu open
+ const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  // Handle mobile menu close
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
   return (
     <>
-      <AppBar position="static" sx={{ color: 'white', boxShadow: 'none' }}>
+      <AppBar position="static" sx={{ backgroundColor: '#005477', color: 'white', borderRadius: "40px" }}>
         <Toolbar>
           <Typography
-            variant="h6"
+            variant="h3"
             component={Link}
             to="/"
             sx={{
               flexGrow: 1,
               textDecoration: 'none',
-              color: 'black',
+              color: 'white',
               fontWeight: 'bold',
               display: 'flex',
               alignItems: 'center',
             }}
           >
-            <Box sx={{ backgroundColor: 'yellow', width: 30, height: 30, marginRight: 1 }}></Box>
-            FitMeal
+           FitMeal
           </Typography>
+
+          {/* Desktop Menu */}
           <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-            <Button component={Link} to="/" sx={{ color: 'black', fontWeight: 'bold' }}>
+            <Button component={Link} to="/" sx={{ color: 'white' }}>
               Home
             </Button>
+            {!isAuthenticated && (
+              <>
+                <Button component={Link} to="/register" sx={{ color: 'white'}}>
+                Register
+              </Button>
+              <Button component={Link} to="/login" sx={{ color: 'white'}}>
+                Login
+              </Button>
+              </>
+            )}
             {isAuthenticated && (
               <>
-                <Button component={Link} to="/saved" sx={{ color: 'black', fontWeight: 'bold' }}>
+                <Button component={Link} to="/saved" sx={{ color: 'white' }}>
                   Saved
                 </Button>
-                <Button onClick={handleLogout} sx={{ color: 'black', fontWeight: 'bold' }}>
+                <Button onClick={handleLogout} sx={{ color: 'white' }}>
                   Logout
                 </Button>
               </>
             )}
           </Box>
-          <IconButton edge="end" color="inherit" aria-label="menu" onClick={toggleDrawer} sx={{ display: { xs: 'block', md: 'none' } }}>
+
+          {/* Mobile Menu Icon */}
+          <IconButton
+            edge="end"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleMenuOpen}
+            sx={{ display: { xs: 'block', md: 'none' } }}
+          >
             <MenuIcon />
           </IconButton>
-        </Toolbar>
-      </AppBar>
 
-      {/* Drawer for mobile view */}
-      <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer}>
-        <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer}>
-          <IconButton sx={{ marginLeft: 'auto' }} onClick={toggleDrawer}>
-            <CloseIcon />
-          </IconButton>
-          <List>
-            <ListItem button component={Link} to="/" onClick={toggleDrawer}>
-              <ListItemText primary="Home" />
-            </ListItem>
+          {/* Mobile Dropdown Menu */}
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            sx={{ display: { xs: 'block', md: 'none' } }}
+          >
+            <MenuItem onClick={handleMenuClose} component={Link} to="/">
+              Home
+            </MenuItem>
+            {!isAuthenticated && (
+               <>
+                 <MenuItem onClick={handleMenuClose} component={Link} to="/register">
+                    Register
+                  </MenuItem>
+                  <MenuItem onClick={handleMenuClose} component={Link} to="/login">
+                      Login
+                  </MenuItem>                    
+               </>         
+            )}
             {isAuthenticated && (
               <>
-                <ListItem button component={Link} to="/saved" onClick={toggleDrawer}>
-                  <ListItemText primary="Saved" />
-                </ListItem>
-                <ListItem button onClick={handleLogout}>
-                  <ListItemText primary="Logout" />
-                </ListItem>
+                <MenuItem onClick={handleMenuClose} component={Link} to="/saved">
+                  Saved
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>
+                  Logout
+                </MenuItem>
               </>
             )}
-          </List>
-        </Box>
-      </Drawer>
+          </Menu>
+        </Toolbar>
+      </AppBar>
     </>
   );
 };
