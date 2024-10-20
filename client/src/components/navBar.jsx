@@ -33,7 +33,14 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: '#005477', color: 'white', borderRadius: "40px" }}>
+      <AppBar position="static" sx={{
+          backgroundColor: '#005477',
+          color: 'white',
+          borderRadius: "40px",
+          margin: '0 auto',
+          maxWidth: '1200px', 
+          padding: '0 20px'  
+          }}>
         <Toolbar>
           <Typography
             variant="h3"
