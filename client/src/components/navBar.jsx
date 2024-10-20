@@ -39,7 +39,7 @@ const Navbar = () => {
           borderRadius: "40px",
           margin: '0 auto',
           maxWidth: '1200px', 
-          padding: '0 20px'  
+          padding: '10px 20px'  
           }}>
         <Toolbar>
           <Typography
