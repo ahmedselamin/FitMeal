@@ -10,3 +10,15 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Create a new post
+router.post('/', async (req, res) => {
+    const { title, description, ingredients, instructions, author } = req.body;
+  
+    try {
+      const newPost = new Post({ title, description, ingredients, instructions, author });
+      await newPost.save();
+      res.status(201).json(newPost);
+    } catch (err) {
+      res.status(500).json({ message: 'Error creating post' });
+    }
+  });
