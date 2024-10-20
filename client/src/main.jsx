@@ -1,23 +1,38 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import homePage from "./pages/homePage"
-import savedPage from "./pages/savedPage"
-import protectedRout from "./components/protectedRoute"
+import Layout from './components/layout';
+import HomePage from "./pages/homePage"
+import SavedPage from "./pages/savedPage"
+import LoginPage from "./pages/loginPage"
+import RegisterPage from "./pages/registerPage"
+import ProtectedRoute from "./components/protectedRoute"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <homePage />
+    element: <Layout />, 
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/saved",
+        element: <ProtectedRoute><SavedPage /></ProtectedRoute>,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/register",
+        element: <RegisterPage />,
+      },
+    ],
   },
-  {
-    path: "/saved",
-    element:
-        <protectedRout>
-          <savedPage />
-        </protectedRout>        
-  }
-])
+]);
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
