@@ -20,50 +20,74 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Box sx={{ padding: '20px' }}>
-      <Stack spacing={3}>
+    <Box sx={{ padding: '20px', display: 'flex', justifyContent: 'center' }}>
+      <Stack spacing={3} sx={{ maxWidth: '420px', width: '100%' }}>
         {posts.length === 0 ? (
-          <Typography>No posts available</Typography>
+          <Typography variant="h6" align="center" color="text.secondary">
+            No posts available
+          </Typography>
         ) : (
           posts.map((post) => (
-            <Card key={post._id} sx={{ backgroundColor: '#f5f5f5', padding: '10px' }}>
+            <Card 
+              key={post._id} 
+              sx={{ 
+                backgroundColor: '#ffffff', 
+                borderRadius: '20px', 
+                boxShadow: 2, 
+                padding: '9px',
+                transition: 'transform 0.2s',
+                '&:hover': {
+                  transform: 'scale(1.02)', 
+                },
+                width: '100%', 
+                maxHeight: '500px', 
+              }}
+            >
               <CardContent>
-                <Typography variant="h5" component="div">
+              <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
                   {post.title || 'No Title'}
                 </Typography>
 
-                {/* Render the image if it exists */}
                 {post.image && (
-                  <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+                  <Box 
+                    sx={{ 
+                      display: 'flex', 
+                      justifyContent: 'center', 
+                      marginY: '10px' 
+                    }}
+                  >
                     <img
                       src={`http://localhost:3030/uploads/${post.image.split('\\').pop()}`} 
                       alt={post.title}
-                      style={{ maxHeight: '200px', objectFit: 'cover', borderRadius: '8px' }}
+                      style={{ 
+                        maxHeight: '300px',
+                        width: '280px', // Keep the aspect ratio
+                        objectFit: 'cover', 
+                        borderRadius: '8px' 
+                      }}
                     />
                   </Box>
                 )}
 
-                <Typography variant="body2" color="textSecondary" sx={{ marginTop: '10px' }}>
+                <Typography variant="body2" color="text.secondary" sx={{ marginY: '10px' }}>
                   {post.instructions || 'No Instructions'}
-                </Typography>
-
-                <Typography variant="caption" display="block" gutterBottom sx={{ marginTop: '10px' }}>
-                  {post.CreatedAt ? new Date(post.CreatedAt).toLocaleDateString() : 'No Date'}
                 </Typography>
 
                 {/* Render ingredients if they exist */}
                 {post.ingredients && (
-                  <Typography variant="body2" sx={{ marginTop: '10px' }}>
+                  <Typography variant="body2" sx={{ marginY: '10px' }}>
                     <strong>Ingredients:</strong> {JSON.parse(post.ingredients[0]).join(', ')}
                   </Typography>
                 )}
-
-                {/* Render author if exists */}
                 {post.author && (
-                  <Typography variant="caption" display="block" sx={{ marginTop: '10px' }}>
+                  <Typography variant="caption" display="block" sx={{ marginY: '5px' }}>
                     <strong>Author:</strong> {post.author.username || 'Unknown'}
                   </Typography>
-                )}
+                )}  
+                
+                <Typography variant="caption" display="block" sx={{ marginY: '5px', fontStyle: 'italic' }}>
+                  {post.CreatedAt ? new Date(post.CreatedAt).toLocaleDateString() : 'No Date'}
+                </Typography>
               </CardContent>
             </Card>
           ))
