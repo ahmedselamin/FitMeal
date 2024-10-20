@@ -3,9 +3,10 @@ import Post from '../models/Post.js';
 // Create a new post
 export const createPost = async (req, res) => {
   const { title, description, ingredients, instructions, author } = req.body;
+  const image = req.file.path;
 
   try {
-    const newPost = new Post({ title, description, ingredients, instructions, author });
+    const newPost = new Post({ title, description, ingredients, instructions, author, image });
     await newPost.save();
     res.status(201).json(newPost);
   } catch (err) {
