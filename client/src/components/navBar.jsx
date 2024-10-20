@@ -94,8 +94,14 @@ const Navbar = () => {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
-            sx={{ display: { xs: 'block', md: 'none' } }}
-          >
+            sx={{ 
+                display: { xs: 'block', md: 'none' },
+                '& .MuiPaper-root': {
+                  minWidth: '250px', // Increase the width for better mobile experience
+                  padding: '10px', // Add padding around the menu
+                },
+            }}>
+                    
             <MenuItem onClick={handleMenuClose} component={Link} to="/">
               Home
             </MenuItem>
