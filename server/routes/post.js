@@ -10,9 +10,9 @@ import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post('/', authMiddleware, createPost);
 router.get('/', getAllPosts);
 router.get('/:id', getPostById);
+router.post('/', authMiddleware, createPost);
 router.put('/:id', authMiddleware, updatePostById);
 router.delete('/:id', authMiddleware, deletePostById);
 
