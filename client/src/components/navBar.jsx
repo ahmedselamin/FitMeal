@@ -12,7 +12,7 @@ const Navbar = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsAuthenticated(!!token);
-  }, []); // Empty dependency array ensures this only runs once when the component mounts
+  }, [localStorage.getItem('token')]); // Empty dependency array ensures this only runs once when the component mounts
 
   // Handle logout
   const handleLogout = () => {
@@ -64,7 +64,7 @@ const Navbar = () => {
             <Button component={Link} to="/" sx={{ color: 'white', fontWeight: "bold" }}>
               Home
             </Button>
-            {!isAuthenticated ? (
+            {isAuthenticated ? (
                <>
                <Button component={Link} to="/saved" sx={{ color: 'white', fontWeight: "bold" }}>
                  Saved
