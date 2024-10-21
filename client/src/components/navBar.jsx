@@ -60,25 +60,25 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-            <Button component={Link} to="/" sx={{ color: 'white' }}>
+            <Button component={Link} to="/" sx={{ color: 'white', fontWeight: "bold" }}>
               Home
             </Button>
             {!isAuthenticated && (
               <>
-                <Button component={Link} to="/register" sx={{ color: 'white'}}>
+                <Button component={Link} to="/register" sx={{ color: 'white', fontWeight: "bold" }}>
                 Register
               </Button>
-              <Button component={Link} to="/login" sx={{ color: 'white'}}>
+              <Button component={Link} to="/login" sx={{ color: 'white', fontWeight: "bold" }}>
                 Login
               </Button>
               </>
             )}
             {isAuthenticated && (
               <>
-                <Button component={Link} to="/saved" sx={{ color: 'white' }}>
+                <Button component={Link} to="/saved" sx={{ color: 'white', fontWeight: "bold" }}>
                   Saved
                 </Button>
-                <Button onClick={handleLogout} sx={{ color: 'white' }}>
+                <Button onClick={handleLogout} sx={{ color: 'white', fontWeight: "bold" }}>
                   Logout
                 </Button>
               </>
