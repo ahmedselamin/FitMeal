@@ -5,14 +5,56 @@ import {
   Typography, 
   Stack,
   Box, 
-  Button
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
 } from '@mui/material';
 import axiosInstance from '../utils/axiosInstance';
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    image: "",
+    ingredients: "",
+    instructions: "",
+    author: ""
+  });
 
-  // Fetch posts from the backend
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name] : e.target.value
+    });
+  };
+  
+  const clearForm = () =>{
+    setFormData({
+      title: "",
+      image: "",
+      ingredients: "",
+      instructions: "",
+      author: ""
+    });
+  };
+
+  const openDialog = () =>{
+    setOpen(true);
+  }
+
+  const closeDialog = () => {
+    setOpen(false);
+    clearForm();
+  }
+
+  const handleFormSubmit = () => {
+    console.log("form")
+  }
+  
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -31,6 +73,7 @@ const HomePage = () => {
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px', maxWidth: '600px', marginX: 'auto' }}>
         <Button 
           variant="contained" 
+          onClick={openDialog}
           sx={{
             backgroundColor: '#005477',
             color: 'white', 
@@ -42,7 +85,6 @@ const HomePage = () => {
                 transform: 'scale(1.1)',
             },
           }} 
-          onClick={() => console.log('Redirect to Add Post Form')}
         >
           Add Post
         </Button>
@@ -89,6 +131,32 @@ const HomePage = () => {
           ))
         )}
       </Stack>
+
+      <Dialog maxWidth="xs" fullWidth open={open} close={closeDialog}>
+        <DialogTitle sx={{ textAlign: "center" }}>Share A Recipe</DialogTitle>
+        <DialogContent>
+          <Box component="form" onSubmit={handleFormSubmit}>
+          <TextField
+           margin="dense"
+           name="title"
+           label="name"
+           type="text"
+           fullWidth
+           required
+           value={formData.title}
+           onChange={handleInputChange}                               
+          />
+          <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+             <Button variant="outlined" onClick={closeDialog}>
+               Discard
+             </Button>
+             <Button variant="contained" type="submit" color="primary">
+               Confirm
+             </Button>                                
+           </DialogActions>                                           
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };
