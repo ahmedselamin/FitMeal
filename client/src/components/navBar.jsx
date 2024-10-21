@@ -12,17 +12,18 @@ const Navbar = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsAuthenticated(!!token);
-  }, []);
+  }, []); // Empty dependency array ensures this only runs once when the component mounts
 
   // Handle logout
   const handleLogout = () => {
     localStorage.removeItem('token');
-    
+    localStorage.removeItem('username');
+    setIsAuthenticated(false); // Ensure state is updated to reflect logout
     navigate('/');
   };
 
   // Handle mobile menu open
- const handleMenuOpen = (event) => {
+  const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -40,7 +41,7 @@ const Navbar = () => {
           margin: '0 auto',
           maxWidth: '1500px', 
           padding: '10px 20px'  
-          }}>
+      }}>
         <Toolbar>
           <Typography
             variant="h4"
@@ -55,7 +56,7 @@ const Navbar = () => {
               alignItems: 'center',
             }}
           >
-           FitMeal
+            FitMeal
           </Typography>
 
           {/* Desktop Menu */}
@@ -63,25 +64,22 @@ const Navbar = () => {
             <Button component={Link} to="/" sx={{ color: 'white', fontWeight: "bold" }}>
               Home
             </Button>
-            {!isAuthenticated && (
-              <>
-                <Button component={Link} to="/register" sx={{ color: 'white', fontWeight: "bold" }}>
-                Register
-              </Button>
-              <Button component={Link} to="/login" sx={{ color: 'white', fontWeight: "bold" }}>
-                Login
-              </Button>
-              </>
-            )}
-            {isAuthenticated && (
+            {!isAuthenticated ? (
               <>
                 <Button component={Link} to="/saved" sx={{ color: 'white', fontWeight: "bold" }}>
                   Saved
                 </Button>
-                <Button onClick={handleLogout} sx={{ color: 'white', fontWeight: "bold" }}>
-                  Logout
+                <Button component={Link} to="/register" sx={{ color: 'white', fontWeight: "bold" }}>
+                  Register
+                </Button>
+                <Button component={Link} to="/login" sx={{ color: 'white', fontWeight: "bold" }}>
+                  Login
                 </Button>
               </>
+            ) : (
+                <Button onClick={handleLogout} sx={{ color: 'white', fontWeight: "bold" }}>
+                  Logout
+                </Button>              
             )}
           </Box>
 
@@ -102,35 +100,32 @@ const Navbar = () => {
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
             sx={{ 
-                display: { xs: 'block', md: 'none' },
-                '& .MuiPaper-root': {
-                  minWidth: '250px', // Increase the width for better mobile experience
-                  padding: '10px', // Add padding around the menu
-                },
-            }}>
-                    
+              display: { xs: 'block', md: 'none' },
+              '& .MuiPaper-root': {
+                minWidth: '250px', // Increase the width for better mobile experience
+                padding: '10px', // Add padding around the menu
+              },
+            }}
+          >
             <MenuItem onClick={handleMenuClose} component={Link} to="/">
               Home
             </MenuItem>
-            {!isAuthenticated && (
-               <>
-                  <MenuItem onClick={handleMenuClose} component={Link} to="/login">
-                      Login
-                  </MenuItem>                    
-                  <MenuItem onClick={handleMenuClose} component={Link} to="/register">
-                    Register
-                  </MenuItem>
-               </>         
-            )}
-            {isAuthenticated && (
+            {!isAuthenticated ? (
               <>
+                <MenuItem onClick={handleMenuClose} component={Link} to="/login">
+                  Login
+                </MenuItem>                    
+                <MenuItem onClick={handleMenuClose} component={Link} to="/register">
+                  Register
+                </MenuItem>
                 <MenuItem onClick={handleMenuClose} component={Link} to="/saved">
                   Saved
                 </MenuItem>
-                <MenuItem onClick={handleLogout}>
-                  Logout
-                </MenuItem>
               </>
+            ) : (
+              <MenuItem onClick={handleLogout}>
+                  Logout
+             </MenuItem>              
             )}
           </Menu>
         </Toolbar>
