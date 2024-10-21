@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Stack, Box, Button } from '@mui/material';
+import { 
+  Card, 
+  CardContent,
+  Typography, 
+  Stack,
+  Box, 
+  Button
+} from '@mui/material';
 import axiosInstance from '../utils/axiosInstance';
 
 const HomePage = () => {
@@ -29,7 +36,11 @@ const HomePage = () => {
             color: 'white', 
             borderRadius: '20px', 
             paddingX: '25px', 
-            paddingY: '10px' 
+            paddingY: '10px',
+            transition: 'transform 0.3s ease',
+            '&:hover': {
+                transform: 'scale(1.1)',
+            },
           }} 
           onClick={() => console.log('Redirect to Add Post Form')}
         >
