@@ -23,12 +23,12 @@ const LoginPage = () => {
         password: formData.password,
       });
 
-      const token = response.data;
+      const token = response.data.token;
 
       console.log(token);
 
       localStorage.setItem('token', token);
-      navigate('/dashboard');
+      navigate('/');
 
     } catch (error) {
       console.error(error);
