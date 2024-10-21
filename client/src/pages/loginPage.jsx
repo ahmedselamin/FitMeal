@@ -19,13 +19,16 @@ const LoginPage = () => {
 
     try {
       const response = await axiosInstance.post('/auth/login', {
-        username: formData,
+        username: formData.username,
         password: formData.password,
       });
 
       const token = response.data;
 
       console.log(token);
+
+      localStorage.setItem('token', token);
+      navigate('/dashboard');
 
     } catch (error) {
       console.error(error);
