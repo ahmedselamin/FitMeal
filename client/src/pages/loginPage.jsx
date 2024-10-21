@@ -1,6 +1,37 @@
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, Button, TextField } from "@mui/material";
+import axiosInstance from "../utils/axiosInstance";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ username: '', password: '' });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name] : e.target.value,
+    });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axiosInstance.post('/auth/login', {
+        username: formData,
+        password: formData.password,
+      });
+
+      const token = response.data;
+
+      console.log(token);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <Container maxWidth="xs">
       <Box
@@ -30,7 +61,7 @@ const LoginPage = () => {
           Please log in to your account
         </Typography>
 
-        <Box component="form" noValidate autoComplete="off" sx={{ width: '100%' }}>         
+        <Box component="form" onSubmit={handleLogin} noValidate autoComplete="off" sx={{ width: '100%' }}>         
           <TextField
             margin="dense"
             name="username"
@@ -38,6 +69,8 @@ const LoginPage = () => {
             type="text"
             fullWidth
             required
+            value={formData.username}
+            onChange={handleInputChange}
             sx={{ mb: 2 }}
           />
           <TextField
@@ -47,6 +80,8 @@ const LoginPage = () => {
             type="password"
             fullWidth
             required
+            value={formData.password}
+            onChange={handleInputChange}
             sx={{ mb: 3 }}
           />
           <Button
@@ -63,7 +98,7 @@ const LoginPage = () => {
                 backgroundColor: '#000',
               },
             }}>
-          Login
+            Login
           </Button>
         </Box>        
         <Typography
