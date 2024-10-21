@@ -21,12 +21,17 @@ const HomePage = () => {
 
   return (
     <Box sx={{ padding: '20px' }}>
-      {/* Add Post Button */}
+     
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
         <Button 
           variant="contained" 
-          color="primary" 
-          sx={{ borderRadius: '20px', paddingX: '20px' }} 
+          sx={{
+            backgroundColor: '#005477',
+            color: 'white', 
+            borderRadius: '20px', 
+            paddingX: '25px', 
+            paddingY: '10px' 
+          }} 
           onClick={() => console.log('Redirect to Add Post Form')}
         >
           Add Post
@@ -51,7 +56,7 @@ const HomePage = () => {
                     <img
                       src={`http://localhost:3030/uploads/${post.image.split('\\').pop()}`} 
                       alt={post.title}
-                      style={{ maxHeight: '200px', width: 'auto', objectFit: 'cover', borderRadius: '8px' }}
+                      style={{ maxHeight: '300px', width: '300px', objectFit: 'cover', borderRadius: '8px' }}
                     />
                   </Box>
                 )}
