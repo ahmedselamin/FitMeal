@@ -10,7 +10,7 @@ const LoginPage = () => {
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name] : e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -19,21 +19,21 @@ const LoginPage = () => {
 
     try {
       const response = await axiosInstance.post('/auth/login', {
-        username: formData.username,
+        username: formData.username, 
         password: formData.password,
       });
 
-      const token = response.data.token;
+      const token = response.data.token;  
 
-      console.log(token);
+      console.log('Login successful:', token);
 
       localStorage.setItem('token', token);
-      navigate('/');
+      navigate('/');  
 
     } catch (error) {
-      console.error(error);
+      console.error('Login error:', error);
     }
-  }
+  };
 
   return (
     <Container maxWidth="xs">
@@ -43,16 +43,17 @@ const LoginPage = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'letf',
-        }}>
-
+          alignItems: 'left',
+        }}
+      >
         <Typography
           variant="h3"
           sx={{
             fontWeight: 'bold',
             mb: 2,
             color: '#005477',
-          }}>        
+          }}
+        >
           Welcome Back!
         </Typography>
         <Typography
@@ -60,11 +61,12 @@ const LoginPage = () => {
           sx={{
             mb: 4,
             textAlign: 'center',
-          }}>
+          }}
+        >
           Please log in to your account
         </Typography>
 
-        <Box component="form" onSubmit={handleLogin} noValidate autoComplete="off" sx={{ width: '100%' }}>         
+        <Box component="form" onSubmit={handleLogin} noValidate autoComplete="off" sx={{ width: '100%' }}>
           <TextField
             margin="dense"
             name="username"
@@ -100,14 +102,15 @@ const LoginPage = () => {
               '&:hover': {
                 backgroundColor: '#000',
               },
-            }}>
+            }}
+          >
             Login
           </Button>
-        </Box>        
+        </Box>
         <Typography
           variant="body2"
-          sx={{ mt: 2, color: 'text.secondary', textAlign: 'center' }}>
-        
+          sx={{ mt: 2, color: 'text.secondary', textAlign: 'center' }}
+        >
           Don't have an account? <a href="/register" style={{ color: '#005477' }}>Sign Up</a>
         </Typography>
       </Box>
