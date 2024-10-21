@@ -70,15 +70,19 @@ const HomePage = () => {
                 )}
 
                 <Typography variant="body2" color="text.secondary" sx={{ marginY: '10px' }}>
+                  {post.description}
+                </Typography>
+
+                <Typography variant="body2" color="text.secondary" sx={{ marginY: '10px' }}>
                   {post.instructions || 'No Instructions'}
                 </Typography>
 
-                {/* Render ingredients if they exist */}
                 {post.ingredients && (
                   <Typography variant="body2" sx={{ marginY: '10px' }}>
                     <strong>Ingredients:</strong> {JSON.parse(post.ingredients[0]).join(', ')}
                   </Typography>
                 )}
+                
                 {post.author && (
                   <Typography variant="caption" display="block" sx={{ marginY: '5px' }}>
                     <strong>Author:</strong> {post.author.username || 'Unknown'}
