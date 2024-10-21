@@ -17,7 +17,7 @@ const Navbar = () => {
   // Handle logout
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setIsAuthenticated(false);
+    
     navigate('/');
   };
 
@@ -38,7 +38,7 @@ const Navbar = () => {
           color: 'white',
           borderRadius: "40px",
           margin: '0 auto',
-          maxWidth: '1250px', 
+          maxWidth: '1500px', 
           padding: '10px 20px'  
           }}>
         <Toolbar>
