@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, Button, TextField } from "@mui/material";
 import axiosInstance from "../utils/axiosInstance";
+import { jwtDecode } from 'jwt-decode';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,10 +25,12 @@ const LoginPage = () => {
       });
 
       const token = response.data.token;  
-
-      console.log('Login successful:', token);
-
+      const decodedToken = jwtDecode(token);
+      
+      const username = decodedToken['name']
+      
       localStorage.setItem('token', token);
+      localStorage.setItem('username', username);
       navigate('/');  
 
     } catch (error) {
