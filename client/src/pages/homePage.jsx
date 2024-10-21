@@ -21,8 +21,7 @@ const HomePage = () => {
 
   return (
     <Box sx={{ padding: '20px' }}>
-     
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px', maxWidth: '600px', marginX: 'auto' }}>
         <Button 
           variant="contained" 
           sx={{
