@@ -38,7 +38,7 @@ const Navbar = () => {
           color: 'white',
           borderRadius: "40px",
           margin: '0 auto',
-          maxWidth: '1200px', 
+          maxWidth: '1250px', 
           padding: '10px 20px'  
           }}>
         <Toolbar>
@@ -114,12 +114,12 @@ const Navbar = () => {
             </MenuItem>
             {!isAuthenticated && (
                <>
-                 <MenuItem onClick={handleMenuClose} component={Link} to="/register">
-                    Register
-                  </MenuItem>
                   <MenuItem onClick={handleMenuClose} component={Link} to="/login">
                       Login
                   </MenuItem>                    
+                  <MenuItem onClick={handleMenuClose} component={Link} to="/register">
+                    Register
+                  </MenuItem>
                </>         
             )}
             {isAuthenticated && (
