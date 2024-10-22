@@ -74,6 +74,15 @@ const HomePage = () => {
     data.append('image', formData.image);
   }
 
+  const fetchPosts = async () => {
+    try {
+      const response = await axiosInstance.get('/posts');
+      setPosts(response.data);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
   try {
     const response = await axiosInstance.post('/posts', data, {
       headers: {
@@ -90,16 +99,7 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axiosInstance.get('/posts');
-        setPosts(response.data);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
-
+  useEffect(() => { 
     fetchPosts();
   }, []);
 
