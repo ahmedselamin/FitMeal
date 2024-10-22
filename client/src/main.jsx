@@ -7,6 +7,7 @@ import SavedPage from "./pages/savedPage"
 import LoginPage from "./pages/loginPage"
 import RegisterPage from "./pages/registerPage"
 import ProtectedRoute from "./components/protectedRoute"
+import { AuthProvider } from './authContext';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />    
+    <AuthProvider>
+      <RouterProvider router={router} /> 
+    </AuthProvider>   
   </StrictMode>,
 )
