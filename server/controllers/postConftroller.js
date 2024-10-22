@@ -2,7 +2,8 @@ import Post from '../models/Post.js';
 
 // Create a new post
 export const createPost = async (req, res) => {
-  const { title, description, ingredients, instructions, author } = req.body;
+  const { title, description, ingredients, instructions } = req.body;
+  const author = req.user.id;
   const image = req.file.path;
 
   try {
