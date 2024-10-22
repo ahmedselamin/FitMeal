@@ -12,7 +12,6 @@ const Navbar = () => {
   // Handle logout
   const handleLogout = () => {
     logout();
-    
     navigate('/');
   };
 
@@ -61,7 +60,7 @@ const Navbar = () => {
             {isAuthenticated ? (
                <>
                <Button component={Link} to="/saved" sx={{ color: 'white', fontWeight: "bold" }}>
-                 Saved
+                 Bookmarks
                </Button>
                <Button onClick={handleLogout} sx={{ color: 'white', fontWeight: "bold" }}>
                  Logout
@@ -112,7 +111,7 @@ const Navbar = () => {
                  Logout
                 </MenuItem>   
                <MenuItem onClick={handleMenuClose} component={Link} to="/saved">
-                 Saved
+                 bookmarks
                </MenuItem>
               </>
             ) : (                
