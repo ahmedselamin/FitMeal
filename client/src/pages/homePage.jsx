@@ -66,7 +66,7 @@ const HomePage = () => {
 
     const data = new FormData();
   data.append('title', formData.title);
-  data.append('ingredients', formData.ingredients);
+  data.append('ingredients', JSON.stringify(formData.ingredients.split(',')));
   data.append('instructions', formData.instructions);
   
   // If there's an image, append it to the FormData
@@ -80,8 +80,11 @@ const HomePage = () => {
         'Content-Type': 'multipart/form-data',
       },
     });
+
     closeDialog(); 
+
     fetchPosts();
+
     } catch (error) {
       console.error('Error submitting post:', error);
     }
