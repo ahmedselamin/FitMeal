@@ -1,5 +1,21 @@
 import User from '../models/user.js'
-import Post from '../models/post.js'
+
+export const getBookmarks = asyn (req, res) => {
+    const userId = req.User.id;
+
+    try {
+        const user = await findById(userId)
+
+        if(!user){
+            return res.status(404).json({ message: "Not found" })
+        }
+
+        const bookmarks = user.bookmarks
+        return res.status(201).json(bookmarks)
+    } catch (error) {
+        return res.status(500).jsong({ message: error })
+    }
+}
 
 export const addBookmark = async (req, res) => {
     const userId = req.user.id
