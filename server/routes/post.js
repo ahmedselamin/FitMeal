@@ -8,7 +8,7 @@ import {
 } from '../controllers/postConftroller.js';
 import authMiddleware from "../middleware/auth.js";
 import upload from "../middleware/upload.js";
-import { addBookmark, removeBookmark } from "../controllers/bookmarkController.js"
+import { addBookmark, removeBookmark, getBookmarks } from "../controllers/bookmarkController.js"
 
 const router = express.Router();
 
@@ -19,6 +19,6 @@ router.put('/:id', authMiddleware, updatePostById);
 router.delete('/:id', authMiddleware, deletePostById);
 router.post('/:id/bookmark', authMiddleware, addBookmark );
 router.delete('/:id/bookmark', authMiddleware, removeBookmark);
-router.get('/bookmarks', authMiddleware, )
+router.get('/bookmarks', authMiddleware, getBookmarks )
 
 export default router;
