@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, Button, TextField } from "@mui/material";
-import { AuthContext } from '../authContext'; // Import the AuthContext
+import { AuthContext } from '../authContext'; 
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // Get the login function from context
+  const { login } = useContext(AuthContext); 
   const [formData, setFormData] = useState({ username: '', password: '' });
 
   const handleInputChange = (e) => {
@@ -21,9 +21,8 @@ const LoginPage = () => {
     const success = await login(formData); // Call the login function
 
     if (success) {
-      navigate('/'); // Navigate to home page on success
-    } else {
-      // Optionally, handle login failure (show a message, etc.)
+      navigate('/'); 
+    } else {      
       console.error('Login failed');
     }
   };
