@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { 
   Card, 
   CardContent,
@@ -11,10 +11,13 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  Container,
 } from '@mui/material';
 import axiosInstance from '../utils/axiosInstance';
+import { AuthContext } from '../AuthContext';
 
 const HomePage = () => {
+  const {isAuthenticated, username} = useContext(AuthContext); 
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -99,26 +102,32 @@ const HomePage = () => {
 
   return (
     <Box sx={{ padding: '20px' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px', maxWidth: '600px', marginX: 'auto' }}>
-        <Button 
-          variant="contained" 
-          onClick={openDialog}
-          sx={{
-            backgroundColor: '#005477',
-            color: 'white', 
-            borderRadius: '20px', 
-            paddingX: '25px', 
-            paddingY: '10px',
-            transition: 'transform 0.3s ease',
-            '&:hover': {
-              transform: 'scale(1.1)',
-            },
-          }} 
-        >
-          Add Post
-        </Button>
-      </Box>
-
+      {isAuthenticated ? (
+        <Container>
+          <Typography variant="h4" sx={{ textAlign: 'left', flexGrow: 1 }}>
+           Welcome, {username}!
+          </Typography>
+        
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px', maxWidth: '600px', marginX: 'auto' }}> 
+            <Button 
+                variant="contained" 
+                onClick={openDialog}
+                sx={{
+                  backgroundColor: '#005477',
+                  color: 'white', 
+                  borderRadius: '20px', 
+                  paddingX: '25px', 
+                  paddingY: '10px',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.1)',
+                  },
+                }}>       
+                Add Post
+              </Button>          
+          </Box>
+        </Container>
+      ): null }
       <Stack spacing={3} sx={{ maxWidth: '450px', margin: '0 auto' }}>
         {posts.length === 0 ? (
           <Typography variant="h6" align="center" color="text.secondary">
