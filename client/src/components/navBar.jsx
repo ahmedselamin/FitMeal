@@ -1,24 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Typography, Button, Menu, MenuItem, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { AuthContext } from '../AuthContext';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  // Check if the user is authenticated
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token);
-  }, [localStorage.getItem('token')]); // Empty dependency array ensures this only runs once when the component mounts
 
   // Handle logout
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    setIsAuthenticated(false); // Ensure state is updated to reflect logout
+    logout();
     navigate('/');
   };
 
@@ -67,7 +60,7 @@ const Navbar = () => {
             {isAuthenticated ? (
                <>
                <Button component={Link} to="/saved" sx={{ color: 'white', fontWeight: "bold" }}>
-                 Saved
+                 Bookmarks
                </Button>
                <Button onClick={handleLogout} sx={{ color: 'white', fontWeight: "bold" }}>
                  Logout
@@ -118,7 +111,7 @@ const Navbar = () => {
                  Logout
                 </MenuItem>   
                <MenuItem onClick={handleMenuClose} component={Link} to="/saved">
-                 Saved
+                 bookmarks
                </MenuItem>
               </>
             ) : (                
