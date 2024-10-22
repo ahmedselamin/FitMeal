@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, Button, TextField } from "@mui/material";
-import axiosInstance from "../utils/axiosInstance";
-import { jwtDecode } from 'jwt-decode';
+import { AuthContext } from '../authContext'; // Import the AuthContext
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // Get the login function from context
   const [formData, setFormData] = useState({ username: '', password: '' });
 
   const handleInputChange = (e) => {
@@ -18,23 +18,13 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axiosInstance.post('/auth/login', {
-        username: formData.username, 
-        password: formData.password,
-      });
+    const success = await login(formData); // Call the login function
 
-      const token = response.data.token;  
-      const decodedToken = jwtDecode(token);
-      
-      const username = decodedToken['name']
-      
-      localStorage.setItem('token', token);
-      localStorage.setItem('username', username);
-      navigate('/');  
-
-    } catch (error) {
-      console.error('Login error:', error);
+    if (success) {
+      navigate('/'); // Navigate to home page on success
+    } else {
+      // Optionally, handle login failure (show a message, etc.)
+      console.error('Login failed');
     }
   };
 
