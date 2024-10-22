@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/post.js";
+import bookmarks from "./routes/bookmarks.js";
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/bookmarks', bookmarks);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
