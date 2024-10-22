@@ -61,6 +61,15 @@ const HomePage = () => {
     clearForm();
   }
 
+  const fetchPosts = async () => {
+    try {
+      const response = await axiosInstance.get('/posts');
+      setPosts(response.data);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -73,15 +82,6 @@ const HomePage = () => {
   if (formData.image) {
     data.append('image', formData.image);
   }
-
-  const fetchPosts = async () => {
-    try {
-      const response = await axiosInstance.get('/posts');
-      setPosts(response.data);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    }
-  };
 
   try {
     const response = await axiosInstance.post('/posts', data, {
@@ -99,7 +99,7 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     fetchPosts();
   }, []);
 
