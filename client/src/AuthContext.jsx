@@ -17,8 +17,11 @@ export const AuthProvider = ({ children }) => {
             password: formData.password,
         });
 
+        return response.status === 201? true : false;
+
     } catch (error) {
         console.error(error);        
+        return false;
     }
   }
 
