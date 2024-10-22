@@ -15,13 +15,13 @@ const RegisterPage = () => {
     });
   };
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     const success = await register(formData); 
 
     if (success) {
-      navigate('/'); 
+      navigate('/login'); 
     } else {      
       console.error('Login failed');
     }
@@ -59,7 +59,7 @@ const RegisterPage = () => {
           Please log add credentials to register.
         </Typography>
 
-        <Box component="form" onSubmit={handleLogin} noValidate autoComplete="off" sx={{ width: '100%' }}>
+        <Box component="form" onSubmit={handleRegister} noValidate autoComplete="off" sx={{ width: '100%' }}>
           <TextField
             margin="dense"
             name="username"
