@@ -17,7 +17,8 @@ router.get('/:id', getPostById);
 router.post('/', authMiddleware, upload.single('image'), createPost);
 router.put('/:id', authMiddleware, updatePostById);
 router.delete('/:id', authMiddleware, deletePostById);
-router.post('/:id/bookmark', authMiddleware, removeBookmark );
+router.post('/:id/bookmark', authMiddleware, addBookmark );
 router.delete('/:id/bookmark', authMiddleware, removeBookmark);
+router.get('/bookmarks', authMiddleware, )
 
 export default router;
